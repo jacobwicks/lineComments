@@ -1,0 +1,101 @@
+/* declaring a variable lh as 1.4rem, or 1.4 times the height of a single line of text
+line-height is equal to the value of the variable lh */
+html {
+    --lh: 1.4rem;
+    line-height: var(--lh);
+}
+
+/* the before element of the line_comment_container
+creates the shaft of the arrow pointing at the line number */
+.line_comment_container::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 10px solid;
+    border-bottom: 10px solid;
+    border-left: 25px solid;
+    border-right: 20px solid;
+    border-color: gray;
+    position: absolute;
+    right: -20px;
+    top: 0px;
+}
+
+/* the line comment container holds the contents 
+and displays the background color 
+its default state is collapsed, displaying a maximum of 3 lines of text
+max-height is set to 3 * the lh variable*/
+.line_comment_container {
+    border-top: medium solid white;
+    position: absolute;
+    background-color: gray;
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px;
+    max-height: calc(var(--lh) * 3);
+    transition: max-height 1s ease-out;
+}
+
+/* the after element of the line_comment_container 
+creates the point of the arrow pointing at the line number */
+.line_comment_container::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 30px solid gray;
+    position: absolute;
+    right: -50px;
+    top: -10px;
+}
+
+/* when the user hovers over the line_comment_container
+max-height is set to 100% of the viewport height*/
+.line_comment_container:hover {
+    background-color: lightgray;
+    max-height: 100vh;
+    z-index: 99;
+}
+
+/* the point of the arrow turns green */
+.line_comment_container:hover:after {
+    border-left: 30px solid green;
+}
+
+/* the body of the arrow turns green */
+.line_comment_container:hover:before {
+    border-color: green;
+}
+
+/* the content of the comment 
+    max-height starts at three lines collapsed */
+.line_comment_content {
+    position: relative;
+    max-height: calc(var(--lh) * 3);
+    transition: max-height 1s ease-out;
+    overflow: hidden;
+    padding-right: 1rem;
+}
+
+/* when hovered, max height becomes 100% of the viewport height */
+.line_comment_content:hover {
+    max-height: 100vh;
+}
+
+/* the line label span shows the user the line number 
+that the comment is pointed at */
+.line_label {
+    color: white;
+    font-weight: bold;
+}
+
+/* this class can be applied to limit height to one line of text 
+used when comments are closer than three lines apart */
+.single_height {
+    max-height: var(--lh);
+}
+
+.invalid_assignment {
+    background-color: red;
+}
